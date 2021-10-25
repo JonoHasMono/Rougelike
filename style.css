@@ -1,9 +1,37 @@
 body {
     overflow: hidden;
+    user-select: none;
+    -webkit-user-drag: none;
+    background-image: linear-gradient(#FFFFFF, #A0A0CA);
+    margin: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .bodyVar {
     width: 100%;
     margin: 0px;
     padding: 0px;
+}
+
+.startButton {
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    font-size: 4vw;
+    color: white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border: 0.5vw solid black;
+    background-color: rgb(180,90,255);
+    padding: 5px;
+}
+
+.startButton:hover {
+    cursor: pointer;
+    font-size: 5.5vw;
+    padding: 5px;
+    border: 0.5vw solid black;
+    background-color: rgb(180,90,255);
+    color: white;
 }
