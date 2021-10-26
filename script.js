@@ -1,4 +1,4 @@
-const version = "0.1.4";
+const version = "0.1.6";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -33,12 +33,20 @@ let charChooseText = document.createElement('div');
   characterConfirm.setAttribute('class', 'characterConfirm');
   characterConfirm.innerHTML = "Ready?";
 
+  let firerate = 0;
   let posX = 50;
   let posY = 50;
   let wDown = false;
   let aDown = false;
   let sDown = false;
   let dDown = false;
+  let iDown = false;
+  let jDown = false;
+  let kDown = false;
+  let lDown = false;
+
+  let wepPosX = 0;
+  let wepPosY = 0;
 
 function charChoose() {
     removeStartButton();
@@ -158,4 +166,43 @@ function startGame() {
             }, 5);
         }
     }
+    document.addEventListener('keydown', shootDown);
+    document.addEventListener('keyup', shootUp);
+    function shootDown(e) {
+        let key = ` ${e.code}`
+        key = key.toString();
+        if (key == ' KeyI') {
+            iDown = true;
+            } else if (key == ' KeyJ') {
+                jDown = true;
+            } else if (key == ' KeyK') {
+                kDown = true;
+            } else if (key == ' KeyL') {
+                lDown = true;
+            }
+        }
+
+        function shootUp(e) {
+            let key = ` ${e.code}`
+            key = key.toString();
+            if (key == ' KeyW') {
+                iDown = false;
+                } else if (key == ' KeyA') {
+                    jDown = false;
+                } else if (key == ' KeyS') {
+                    kDown = false;
+                } else if (key == ' KeyD') {
+                    lDown = false;
+                }
+            }
+            if(selectedCharacter) {
+                firerate =  250;
+            }
+
+        shootWeapon()
+        function shootWeapon() {
+            setTimeout(() => {
+
+            },firerate)
+        }
 }
