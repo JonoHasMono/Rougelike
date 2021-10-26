@@ -1,4 +1,4 @@
-const version = "0.1.3";
+const version = "0.1.4";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -140,14 +140,14 @@ function startGame() {
                 } if(sDown == true) {
                     posY = posY + (movespeed / 10);
                 } if(dDown == true) {
-                    posX = posX - (movespeed / 10);
+                    posX = posX + (movespeed / 20);
                 } if(aDown == true) {
-                    posX = posX + (movespeed / 10);
+                    posX = posX - (movespeed / 20);
                 }
                 jono.style.left = posX + "%";
                 jono.style.top = posY + "%";
                 moveCharacter();
-            }, 50);
+            }, 25);
         }
     }
 }
