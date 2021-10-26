@@ -1,4 +1,4 @@
-const version = "0.0.9";
+const version = "0.1.0";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -10,9 +10,15 @@ startButton.addEventListener('click', charChoose);
 startButton.innerHTML = 'PLAY';
 bodyVar.appendChild(startButton);
 
+let selectedCharacter = 0;
+
 let darkBG = document.createElement('div');
 darkBG.setAttribute('class', 'darkBG');
 bodyVar.appendChild(darkBG);
+
+let charChooseText = document.createElement('div');
+    charChooseText.setAttribute('class', 'charChooseText');
+    charChooseText.innerHTML = 'Choose your character';
 
  let jonoCard = document.createElement('div');
  jonoCard.setAttribute('class','jonoCard');
@@ -27,19 +33,19 @@ bodyVar.appendChild(darkBG);
   characterConfirm.setAttribute('class', 'characterConfirm');
   characterConfirm.innerHTML = "Ready?";
 
+  let posX = 50;
+  let posY = 50;
+
 function charChoose() {
     removeStartButton();
     startButton.style.animation = "disappear 0.5s ease";
     startButton.style.animationFillMode = "forwards";
+    bodyVar.appendChild(charChooseText);
     function removeStartButton() {
         setTimeout(() => {
             bodyVar.removeChild(startButton);
         },500);
     }
-    let charChooseText = document.createElement('div');
-    charChooseText.setAttribute('class', 'charChooseText');
-    charChooseText.innerHTML = 'Choose your character';
-    bodyVar.appendChild(charChooseText);
     createDarkBG()
     function createDarkBG() {
         darkBG.style.animation = "appear 1s ease";
@@ -58,12 +64,57 @@ function charChoose() {
         bodyVar.appendChild(jonoCard);
         jonoCard.appendChild(jonoCardVis);
         function selectJonoCard() {
+            selectedCharacter = 1;
             jonoCard.style.animation = "jonoCardChoose 1s ease 1";
             jonoCard.style.animationFillMode = "forwards";
             bodyVar.appendChild(characterConfirm);
             characterConfirm.style.animation = "appear 1s ease";
             characterConfirm.style.animationFillMode = "forwards";
-            bodyVar.removeChild('charChooseText')
+            characterConfirm.addEventListener('click', startGame);
+            bodyVar.removeChild(charChooseText);
+            jonoCardVis.removeEventListener('click', selectJonoCard);
+        }
+    }
+}
+
+function startGame() {
+    darkBG.style.animation = "disappear 1s ease";
+    darkBG.style.animationFillMode = "forwards";
+    bodyVar.removeChild(characterConfirm);
+    bodyVar.removeChild(jonoCard);
+    if(selectedCharacter == 1) {
+        spawnJono();
+    } 
+
+    function spawnJono() {
+        let jono = document.createElement('div');
+        let health = 50;
+        let money = 0;
+        let weapon = 'GH05T';
+        let movespeed = 5;
+        jono.style.left = posX + "%";
+        jono.style.top = posY + "%";
+        jono.setAttribute('class', 'jono');
+        bodyVar.appendChild(jono);
+
+    document.addEventListener('keydown', movement);
+
+    function movement(e) {
+        let key = ` ${e.code}`
+        key = key.toString();
+        if (key == ' KeyW') {
+            moveUp();
+            } else if (key == ' KeyA') {
+                moveLeft();
+            } else if (key == ' KeyS') {
+                moveDown();
+            } else if (key == ' KeyD') {
+                moveRight();
+            }
+        }
+
+        function moveUp() {
+
         }
     }
 }

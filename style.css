@@ -18,7 +18,7 @@ body {
     width: 150%;
     height: 150%;
     position: absolute;
-    background-image: linear-gradient(#040122, #400000);
+    background-image: linear-gradient(#040122, #500000);
     transform: translate(-100%,-150%);
     z-index: 0;
     opacity: 0;
@@ -28,12 +28,12 @@ body {
     position: absolute;
     transform: translate(-50%,-50%);
     left: 50%;
-    top: 50%;
+    top: 70%;
     font-size: 4vw;
     color: white;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 0px 0px 0.5vw white;
-    box-shadow: 5px 10px 1.5vw black;
+    box-shadow: 1vw 2vw 1.5vw black;
     border: 0.5vw solid black;
     background-color: rgb(180,90,255);
     padding: 1%;
@@ -85,21 +85,36 @@ body {
 }
 
 .characterConfirm {
-    width: 100%;
+    width: auto;
     text-align: center;
     position: absolute;
     transform: translate(-50%,-50%);
-    left: 72.5%;
-    top: 92.5%;
+    left: 70%;
+    top: 50%;
     opacity: 1;
     font-size: 6vw;
     color: white;
     -webkit-text-stroke: 0.15vw red;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    text-shadow: 0px 0px 2vw red;
-    padding: 5%;
-    height: 100%;
+    padding: 0%;
+    height: auto;
     z-index: 3;
+}
+
+.characterConfirm:hover {
+    -webkit-text-stroke: 0.15vw lime;
+    text-shadow: 0px 0px 3vw lime;
+    cursor: pointer;
+}
+
+.jono {
+    width: 4vw;
+    height: 4vw;
+    background-color: rgb(0, 255, 100);
+    border: 0.5vw solid black;
+    border-radius: 50%;
+    position: absolute;
+    transform:translate(-50%,-50%);
 }
 
 @keyframes charChooseTextAnim {
