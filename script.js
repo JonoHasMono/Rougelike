@@ -1,4 +1,4 @@
-const version = "0.1.0";
+const version = "0.1.1";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -35,6 +35,10 @@ let charChooseText = document.createElement('div');
 
   let posX = 50;
   let posY = 50;
+  let wDown = false;
+  let aDown = false;
+  let sDown = false;
+  let dDown = false;
 
 function charChoose() {
     removeStartButton();
@@ -97,21 +101,37 @@ function startGame() {
         jono.setAttribute('class', 'jono');
         bodyVar.appendChild(jono);
 
-    document.addEventListener('keydown', movement);
+    document.addEventListener('keydown', movementDown);
+    document.addEventListener('keyup', movementUp);
 
-    function movement(e) {
+    function movementDown(e) {
         let key = ` ${e.code}`
         key = key.toString();
         if (key == ' KeyW') {
-            moveUp();
+            wDown = true;
             } else if (key == ' KeyA') {
-                moveLeft();
+                aDown = true;
             } else if (key == ' KeyS') {
-                moveDown();
+                sDown = true;
             } else if (key == ' KeyD') {
-                moveRight();
+                dDown = true;
             }
         }
+
+        function movementUp(e) {
+            let key = ` ${e.code}`
+            key = key.toString();
+            if (key == ' KeyW') {
+                wDown = false;
+                } else if (key == ' KeyA') {
+                    aDown = false;
+                } else if (key == ' KeyS') {
+                    sDown = false;
+                } else if (key == ' KeyD') {
+                    dDown = false;
+                }
+            }
+    
 
         function moveUp() {
 
