@@ -95,7 +95,7 @@ function startGame() {
         let health = 50;
         let money = 0;
         let weapon = 'GH05T';
-        let movespeed = 10;
+        let movespeed = 2.5;
         jono.style.left = posX + "%";
         jono.style.top = posY + "%";
         jono.setAttribute('class', 'jono');
@@ -136,18 +136,26 @@ function startGame() {
         function moveCharacter() {
             setTimeout(() => {
                 if(wDown == true) {
-                    posY = posY - (movespeed / 10);
+                    if (posY > 5) {
+                    posY = posY - (movespeed / 9);
+                    }
                 } if(sDown == true) {
-                    posY = posY + (movespeed / 10);
+                    if (posY < 95) {
+                        posY = posY + (movespeed / 9);
+                    }
                 } if(dDown == true) {
-                    posX = posX + (movespeed / 20);
+                    if (posX < 97) {
+                        posX = posX + (movespeed / 16);
+                    }
                 } if(aDown == true) {
-                    posX = posX - (movespeed / 20);
+                    if (posX > 3) {
+                        posX = posX - (movespeed / 16);
+                     }
                 }
                 jono.style.left = posX + "%";
                 jono.style.top = posY + "%";
                 moveCharacter();
-            }, 25);
+            }, 5);
         }
     }
 }
