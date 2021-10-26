@@ -1,4 +1,4 @@
-const version = "0.1.6";
+const version = "0.1.7";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -47,6 +47,12 @@ let charChooseText = document.createElement('div');
 
   let wepPosX = 0;
   let wepPosY = 0;
+  let wepSpeed = 0;
+  let wepDmg = 0;
+  let money = 0;
+  let health = 0;
+  let weapon = 0;
+  let weaponDelay = 0;
 
 function charChoose() {
     removeStartButton();
@@ -100,10 +106,12 @@ function startGame() {
 
     function spawnJono() {
         let jono = document.createElement('div');
-        let health = 50;
-        let money = 0;
-        let weapon = 'GH05T';
+        health = 50;
+        money = 0;
+        weapon = 1;
         let movespeed = 2.5;
+        wepDmg = 5;
+        let wepSpeed = 10;
         jono.style.left = posX + "%";
         jono.style.top = posY + "%";
         jono.setAttribute('class', 'jono');
@@ -185,24 +193,48 @@ function startGame() {
         function shootUp(e) {
             let key = ` ${e.code}`
             key = key.toString();
-            if (key == ' KeyW') {
+            if (key == ' KeyI') {
                 iDown = false;
-                } else if (key == ' KeyA') {
+                } else if (key == ' KeyJ') {
                     jDown = false;
-                } else if (key == ' KeyS') {
+                } else if (key == ' KeyK') {
                     kDown = false;
-                } else if (key == ' KeyD') {
+                } else if (key == ' KeyL') {
                     lDown = false;
                 }
             }
             if(selectedCharacter) {
                 firerate =  250;
             }
+        fireWeapon()
+        function fireWeapon() {
+            if(weapon == 1) {
+                shootWeapon1()
+            }
+            function shootWeapon1() {
+                if (iDown == true || jDown == true || kDown == true || lDown == true) {
+                let directionX = 0;
+                let directionY = 0;
+                let bullet1 = document.createElement('div');
+                bullet1.setAttribute('class', 'bullet1');
+                if (iDown == true) {
+                    directionY = -10;
+                } else if (jDown == true) {
+                    directionX = -10;
+                } else if (kDown == true) {
+                    directionY = 10;
+                } else if (lDown == true) {
+                    directionX = 10;
+                }
+                setTimeout(() => {
+                    bullet1.style.left = posX + "%";
+                    bullet1.style.top = posY + "%";
+                    bodyVar.appendChild(bullet1);
+                },firerate)
+            }
 
-        shootWeapon()
-        function shootWeapon() {
-            setTimeout(() => {
-
-            },firerate)
         }
+        setTimeout(() => {
+            fireWeapon()
+        },firerate)}
 }
