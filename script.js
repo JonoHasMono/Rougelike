@@ -1,4 +1,4 @@
-const version = "0.0.8";
+const version = "0.0.9";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -22,6 +22,10 @@ bodyVar.appendChild(darkBG);
  jonoCardVis.addEventListener('click', function () {
      darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
   })
+
+  let characterConfirm = document.createElement('div');
+  characterConfirm.setAttribute('class', 'characterConfirm');
+  characterConfirm.innerHTML = "Ready?";
 
 function charChoose() {
     removeStartButton();
@@ -56,6 +60,10 @@ function charChoose() {
         function selectJonoCard() {
             jonoCard.style.animation = "jonoCardChoose 1s ease 1";
             jonoCard.style.animationFillMode = "forwards";
+            bodyVar.appendChild(characterConfirm);
+            characterConfirm.style.animation = "appear 1s ease";
+            characterConfirm.style.animationFillMode = "forwards";
+            bodyVar.removeChild('charChooseText')
         }
     }
 }
