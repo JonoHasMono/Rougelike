@@ -1,4 +1,4 @@
-const version = "0.1.7";
+const version = "0.1.8";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -203,7 +203,7 @@ function startGame() {
                     lDown = false;
                 }
             }
-            if(selectedCharacter) {
+            if(selectedCharacter == 1) {
                 firerate =  250;
             }
         fireWeapon()
@@ -227,10 +227,16 @@ function startGame() {
                     directionX = 10;
                 }
                 setTimeout(() => {
-                    bullet1.style.left = posX + "%";
-                    bullet1.style.top = posY + "%";
+                    let bulletPosX = posX;
+                    let bulletPosY = posY;
+                    bullet1.style.left = bulletPosX + "%";
+                    bullet1.style.top = bulletPosY + "%";
                     bodyVar.appendChild(bullet1);
+                    moveBullet();
                 },firerate)
+                function moveBullet() {
+
+                }
             }
 
         }
