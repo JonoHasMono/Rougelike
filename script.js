@@ -1,4 +1,4 @@
-const version = "0.1.2";
+const version = "0.1.3";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -95,7 +95,7 @@ function startGame() {
         let health = 50;
         let money = 0;
         let weapon = 'GH05T';
-        let movespeed = 5;
+        let movespeed = 10;
         jono.style.left = posX + "%";
         jono.style.top = posY + "%";
         jono.setAttribute('class', 'jono');
@@ -136,13 +136,13 @@ function startGame() {
         function moveCharacter() {
             setTimeout(() => {
                 if(wDown == true) {
-                    posY = posY + (movespeed / 10);
-                } else if(sDown == true) {
                     posY = posY - (movespeed / 10);
-                } else if(dDown == true) {
-                    posX = posX + (movespeed / 10);
-                } else if(aDown == true) {
+                } if(sDown == true) {
+                    posY = posY + (movespeed / 10);
+                } if(dDown == true) {
                     posX = posX - (movespeed / 10);
+                } if(aDown == true) {
+                    posX = posX + (movespeed / 10);
                 }
                 jono.style.left = posX + "%";
                 jono.style.top = posY + "%";
