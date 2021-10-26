@@ -1,4 +1,4 @@
-const version = "0.0.6";
+const version = "0.0.7";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -9,6 +9,9 @@ startButton.setAttribute('class','startButton');
 startButton.addEventListener('click', charChoose);
 startButton.innerHTML = 'PLAY';
 bodyVar.appendChild(startButton);
+
+let darkBG = document.createElement('div');
+        darkBG.setAttribute('class', 'darkBG');
 
 function charChoose() {
     removeStartButton();
@@ -25,11 +28,12 @@ function charChoose() {
     bodyVar.appendChild(charChooseText);
     createDarkBG()
     function createDarkBG() {
-        let darkBG = document.createElement('div');
-        darkBG.setAttribute('class', 'darkBG');
         bodyVar.appendChild(darkBG);
         darkBG.style.animation = "appear 1s ease";
         darkBG.style.animationFillMode = "forwards";
+        darkBG.addEventListener('mouseover', function () {
+           darkBG.style.backgroundImage = "linear-gradient(#040122, #400000)"; 
+        })
     }
     moveChooseText();
     function moveChooseText() {
@@ -46,6 +50,9 @@ function charChoose() {
         jonoCardVis.setAttribute('src','images/J Card.png');
         jonoCardVis.addEventListener('click', selectJonoCard);
         jonoCard.appendChild(jonoCardVis);
+        jonoCardVis.addEventListener('mouseover', function () {
+            darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
+         })
         jonoCard.style.animation = "jonoCardAppear 1s ease";
         jonoCard.style.animationFillMode = "forwards";
         function selectJonoCard() {
