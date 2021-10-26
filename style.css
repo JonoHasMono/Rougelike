@@ -14,6 +14,15 @@ body {
     padding: 0px;
 }
 
+.darkBG {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: linear-gradient(#110562, #A40000);
+    transform: translate(-100%,-182.5%);
+    z-index: -1;
+}
+
 .startButton {
     position: absolute;
     transform: translate(-50%,-50%);
@@ -24,14 +33,87 @@ body {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     border: 0.5vw solid black;
     background-color: rgb(180,90,255);
-    padding: 5px;
+    padding: 1%;
 }
 
 .startButton:hover {
     cursor: pointer;
     font-size: 5.5vw;
-    padding: 5px;
+    padding: 1%;
     border: 0.5vw solid black;
     background-color: rgb(180,90,255);
     color: white;
+}
+
+.charChooseText {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 25%;
+    opacity: 0;
+    font-size: 5vw;
+    color: white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-text-stroke: 0.2vw black;
+    padding: 5%;
+    height: 100%;
+}
+
+.jonoCard {
+    position: absolute;
+    left: 30%;
+    top: 55%;
+    height: 100%;
+}
+
+
+.jonoCardVis {
+    width: 22.5vw;
+    transform: translate(-50%,-50%);
+}
+.jonoCardVis:hover {
+    width: 25vw;
+    cursor: pointer;
+}
+
+@keyframes charChooseTextAnim {
+    0% {
+        opacity: 0;
+        top: 55%;
+    }
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes jonoCardAppear {
+    0% {
+        opacity: 0;
+        left: 25%;
+    }
+    100% {
+        opacity: 1;
+        left: 30%;
+    }
 }
