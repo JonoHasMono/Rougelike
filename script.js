@@ -1,4 +1,4 @@
-const version = "0.1.1";
+const version = "0.1.2";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -131,10 +131,23 @@ function startGame() {
                     dDown = false;
                 }
             }
-    
+        moveCharacter();
 
-        function moveUp() {
-
+        function moveCharacter() {
+            setTimeout(() => {
+                if(wDown == true) {
+                    posY = posY + (movespeed / 10);
+                } else if(sDown == true) {
+                    posY = posY - (movespeed / 10);
+                } else if(dDown == true) {
+                    posX = posX + (movespeed / 10);
+                } else if(aDown == true) {
+                    posX = posX - (movespeed / 10);
+                }
+                jono.style.left = posX + "%";
+                jono.style.top = posY + "%";
+                moveCharacter();
+            }, 50);
         }
     }
 }
