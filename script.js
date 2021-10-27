@@ -1,4 +1,4 @@
-const version = "0.2.8";
+const version = "0.2.9";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -77,6 +77,7 @@ let charChooseText = document.createElement('div');
   let weapon1Firerate = 50;
 
   let bullet1Hitbox = 0;
+  let enemy1Hitbox = 0;
 
 function charChoose() {
     removeStartButton();
@@ -147,13 +148,75 @@ function charChoose() {
 }
 
 function startGame() {
-    darkBG.style.animation = "disappear 1s ease";
+
+    spawnWaves();
+
+    function spawnWaves() {
+        let wavePower = 0;
+        spawnWave1();
+        function spawnWave1() {
+            wavepower = 5;
+            spawnEnemy1();
+            function spawnEnemy1() {
+                if (wavepower > 0) {
+                    setTimeout(() => {
+                        wavepower --
+                        spawnEnemy1();
+                    },2000)
+                }
+                let enemy1 = document.createElement('div');
+                let enemy1HP = 10;
+                enemy1Hitbox = enemy1.getBoundingClientRect();
+                enemy1.setAttribute('class', 'enemy1');
+                let enemyPosX = 2
+                let enemyPosY = (Math.random() * 80) + 10;
+                enemy1.style.left = enemyPosX + '%';
+                enemy1.style.top = enemyPosY + '%';
+                bodyVar.appendChild(enemy1);
+                moveEnemy1();
+                function moveEnemy1() {
+                    if (enemyPosX < posX) {
+                        enemyPosX += 0.10;
+                        enemy1.style.left = enemyPosX + '%'
+                    } else if (enemyPosX > posX) {
+                        enemyPosX -= 0.10;
+                        enemy1.style.left = enemyPosX + '%'
+                    }
+                    if (enemyPosY < posY) {
+                        enemyPosY += 0.10 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
+                    } else if (enemyPosY > posY) {
+                        enemyPosY -= 0.10 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
+                    }
+                    enemy1Hitbox = enemy1.getBoundingClientRect();
+                    if (bullet1Hitbox.left >= (enemy1Hitbox.left - 10) && bullet1Hitbox.right <= (enemy1Hitbox.right + 10) && (bullet1Hitbox.top >= (enemy1Hitbox.top + 10) && bullet1Hitbox.bottom <= (enemy1Hitbox.bottom - 10))) {
+                        setTimeout(() => {
+                            if (enemy1HP <= 0) {
+                                bodyVar.removeChild(enemy1);
+                                enemy1Hitbox = 0;
+                            } else {
+                                enemy1HP -= 4
+                            }
+                        }, 20);
+                    }
+
+
+                    setTimeout(() => {
+                        moveEnemy1();
+                    }, 5);
+                }
+
+            }
+        }
+        darkBG.style.animation = "disappear 1s ease";
     darkBG.style.animationFillMode = "forwards";
     bodyVar.removeChild(characterConfirm);
     bodyVar.removeChild(jonoCard);
     if(selectedCharacter == 1) {
         spawnJono();
     } 
+        
 
     function spawnJono() {
         let jono = document.createElement('div');
@@ -231,53 +294,6 @@ function startGame() {
         }
     }
 
-    spawnWaves();
-
-    function spawnWaves() {
-        let wavePower = 0;
-        spawnWave1();
-        function spawnWave1() {
-            wavepower = 5;
-            spawnEnemy1();
-            function spawnEnemy1() {
-                let enemy1 = document.createElement('div');
-                let enemy1HP = 10;
-                let enemy1Hitbox = enemy1.getBoundingClientRect();
-                enemy1.setAttribute('class', 'enemy1');
-                enemyPosX = 2
-                enemyPosY = (Math.random() * 80) + 10;
-                enemy1.style.left = enemyPosX + '%';
-                enemy1.style.top = enemyPosY + '%';
-                bodyVar.appendChild(enemy1);
-                moveEnemy1();
-                function moveEnemy1() {
-                    if (enemyPosX < posX) {
-                        enemyPosX += 0.25;
-                        enemy1.style.left = enemyPosX + '%'
-                    } else if (enemyPosX > posX) {
-                        enemyPosX -= 0.25;
-                        enemy1.style.left = enemyPosX + '%'
-                    }
-                    if (enemyPosY < posY) {
-                        enemyPosY += 0.25 * 1.5;
-                        enemy1.style.top = enemyPosY + '%'
-                    } else if (enemyPosY > posY) {
-                        enemyPosY -= 0.25 * 1.5;
-                        enemy1.style.top = enemyPosY + '%'
-                    }
-                    enemy1Hitbox = enemy1.getBoundingClientRect();
-                    if (bullet1Hitbox.left >= enemy1Hitbox.left && bullet1Hitbox.right <= enemy1Hitbox.right) {
-                        (enemy1Hitbox).closest('.bullet1').removeChild();
-                    }
-
-
-                    setTimeout(() => {
-                        moveEnemy1();
-                    }, 25);
-                }
-            }
-        }
-    }
 
     document.addEventListener('keydown', shootDown);
     document.addEventListener('keyup', shootUp);
@@ -344,22 +360,21 @@ function startGame() {
                 let bullet1 = document.createElement('div');
                 bullet1.setAttribute('class', 'bullet1');
                 if (iDown == true) {
-                    directionY = -10;
+                    directionY = -6;
                     bulletDirection = 0;
                 } else if (jDown == true) {
-                    directionX = -10;
+                    directionX = -6;
                     bulletDirection = 1;
                 } else if (kDown == true) {
-                    directionY = 10;
+                    directionY = 6;
                     bulletDirection = 0;
                 } else if (lDown == true) {
-                    directionX = 10;
+                    directionX = 6;
                     bulletDirection = 1;
                 }
                 setTimeout(() => {
                     let bulletPosX = posX;
                     let bulletPosY = posY;
-                    let successfulHit = false;
                     if(bulletDirection == 1) {
                         bullet1.style.transform = 'rotate(90deg)'
                         bulletPosX -= 1;
@@ -375,8 +390,16 @@ function startGame() {
                     moveBullet();
                     function moveBullet() {
                         setTimeout(() => {
-                            if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
+                                if (bullet1Hitbox.left >= (enemy1Hitbox.left - 30) && bullet1Hitbox.right <= (enemy1Hitbox.right + 30) && (bullet1Hitbox.top >= (enemy1Hitbox.top + 20) && bullet1Hitbox.bottom <= (enemy1Hitbox.bottom + 20))) {
+                                    setTimeout(() => {
+                                        alert('bruh');
+                                        bodyVar.removeChild(bullet1);
+                                        if(bullet1Hitbox !== 0) {
+                                            bullet1Hitbox = 0;
+                                        }
+                                    }, 20);
+                            } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bulletPosX = bulletPosX + (directionX / 16);
                                 bulletPosY = bulletPosY + (directionY / 9);
                                 bullet1.style.left = bulletPosX + "%";
@@ -385,7 +408,8 @@ function startGame() {
                             } else {
                                 bodyVar.removeChild(bullet1);
                             }
-                        },5);
+                            
+                        },3);
                     }
                 },5)
             }
@@ -395,5 +419,6 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
+    }
 
 }
