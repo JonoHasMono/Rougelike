@@ -165,6 +165,18 @@ body {
     z-index: 1;
 }
 
+
+
+.enemy1 {
+    width: 2.5vw;
+    height: 2.5vw;
+    background-color: rgba(255, 100, 100, 1);
+    border-radius: 50%;
+    position: absolute;
+    transform:translate(-50%,-50%);
+    z-index: 3;
+}
+
 @keyframes charChooseTextAnim {
     0% {
         opacity: 0;

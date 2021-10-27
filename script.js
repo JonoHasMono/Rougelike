@@ -1,4 +1,4 @@
-const version = "0.2.3";
+const version = "0.2.4";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -342,4 +342,35 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
+    
+
+    spawnWaves();
+
+    function spawnWaves() {
+        let wavePower = 0;
+        spawnWave1();
+        function spawnWave1() {
+            wavepower = 5;
+            spawnEnemy1();
+            function spawnEnemy1() {
+                let enemy1 = document.createElement('div');
+                enemy1.setAttribute('class', 'enemy1');
+                enemyPosX = 2
+                enemyPosY = (Math.random() * 80) + 10;
+                enemy1.style.left = enemyPosX + '%';
+                enemy1.style.top = enemyPosY + '%';
+                bodyVar.appendChild(enemy1);
+                moveEnemy1();
+                function moveEnemy1() {
+                    if (enemyPosX < posX) {
+                        enemyPosX -= 0.5;
+                        enemy1.style.left = enemyPosX + '%'
+                        setTimeout(() => {
+                            moveEnemy1();
+                        }, 25);
+                    }
+                }
+            }
+        }
+    }
 }
