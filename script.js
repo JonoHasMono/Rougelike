@@ -1,4 +1,4 @@
-const version = "0.2.5";
+const version = "0.2.6";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -75,6 +75,8 @@ let charChooseText = document.createElement('div');
   let health = 0;
   let weapon = 0;
   let weapon1Firerate = 50;
+
+  let bullet1Hitbox = 0;
 
 function charChoose() {
     removeStartButton();
@@ -324,6 +326,7 @@ function startGame() {
                     function moveBullet() {
                         setTimeout(() => {
                             if(bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
+                                bullet1Hitbox = bullet1.getBoundingClientRect();
                                 bulletPosX = bulletPosX + (directionX / 16);
                                 bulletPosY = bulletPosY + (directionY / 9);
                                 bullet1.style.left = bulletPosX + "%";
@@ -354,6 +357,7 @@ function startGame() {
             spawnEnemy1();
             function spawnEnemy1() {
                 let enemy1 = document.createElement('div');
+                let enemy1HP = 10;
                 enemy1.setAttribute('class', 'enemy1');
                 enemyPosX = 2
                 enemyPosY = (Math.random() * 80) + 10;
@@ -370,11 +374,14 @@ function startGame() {
                         enemy1.style.left = enemyPosX + '%'
                     }
                     if (enemyPosY < posY) {
-                        enemyPosY += 0.25;
-                        enemy1.style.left = enemyPosY + '%'
+                        enemyPosY += 0.25 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
                     } else if (enemyPosY > posY) {
-                        enemyPosY -= 0.25;
-                        enemy1.style.left = enemyPosY + '%'
+                        enemyPosY -= 0.25 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
+                    }
+                    if (bullet1Hitbox < enemyPosX) {
+
                     }
 
 
