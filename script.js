@@ -1,4 +1,4 @@
-const version = "0.2.4";
+const version = "0.2.5";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -363,12 +363,24 @@ function startGame() {
                 moveEnemy1();
                 function moveEnemy1() {
                     if (enemyPosX < posX) {
-                        enemyPosX -= 0.5;
+                        enemyPosX += 0.25;
                         enemy1.style.left = enemyPosX + '%'
-                        setTimeout(() => {
-                            moveEnemy1();
-                        }, 25);
+                    } else if (enemyPosX > posX) {
+                        enemyPosX -= 0.25;
+                        enemy1.style.left = enemyPosX + '%'
                     }
+                    if (enemyPosY < posY) {
+                        enemyPosY += 0.25;
+                        enemy1.style.left = enemyPosY + '%'
+                    } else if (enemyPosY > posY) {
+                        enemyPosY -= 0.25;
+                        enemy1.style.left = enemyPosY + '%'
+                    }
+
+
+                    setTimeout(() => {
+                        moveEnemy1();
+                    }, 25);
                 }
             }
         }
