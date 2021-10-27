@@ -1,4 +1,4 @@
-const version = "0.2.0";
+const version = "0.2.1";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -28,6 +28,10 @@ let charChooseText = document.createElement('div');
  jonoCardVis.addEventListener('click', function () {
      darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
   })
+
+  let jonoVis = document.createElement('img');
+        jonoVis.setAttribute('class', 'jonoVis');
+        jonoVis.setAttribute('src', 'images/J pixel.png');
 
   let characterConfirm = document.createElement('div');
   characterConfirm.setAttribute('class', 'characterConfirm');
@@ -116,6 +120,7 @@ function startGame() {
         jono.style.top = posY + "%";
         jono.setAttribute('class', 'jono');
         bodyVar.appendChild(jono);
+        jono.appendChild(jonoVis);
 
     document.addEventListener('keydown', movementDown);
     document.addEventListener('keyup', movementUp);
@@ -125,12 +130,16 @@ function startGame() {
         key = key.toString();
         if (key == ' KeyW') {
             wDown = true;
+            jonoVis.style.transform = 'rotate(180deg) translate(7%,7%)'
             } else if (key == ' KeyA') {
                 aDown = true;
+                jonoVis.style.transform = 'rotate(90deg) translate(-7%,7%)'
             } else if (key == ' KeyS') {
                 sDown = true;
+                jonoVis.style.transform = 'rotate(0deg) translate(-7%,-7%)'
             } else if (key == ' KeyD') {
                 dDown = true;
+                jonoVis.style.transform = 'rotate(270deg) translate(7%,-7%)'
             }
         }
 
@@ -181,12 +190,16 @@ function startGame() {
         key = key.toString();
         if (key == ' KeyI') {
             iDown = true;
+            jonoVis.style.transform = 'rotate(180deg) translate(7%,7%)'
             } else if (key == ' KeyJ') {
                 jDown = true;
+                jonoVis.style.transform = 'rotate(90deg) translate(-7%,7%)'
             } else if (key == ' KeyK') {
                 kDown = true;
+                jonoVis.style.transform = 'rotate(0deg) translate(-7%,-7%)'
             } else if (key == ' KeyL') {
                 lDown = true;
+                jonoVis.style.transform = 'rotate(270deg) translate(7%,-7%)'
             }
         }
 
@@ -217,7 +230,7 @@ function startGame() {
                             weapon1Firerate -= 1;
                         }
                         weapon1FirerateCD()
-                    }, 1);
+                    }, 15);
                 }
             }
         }
@@ -228,7 +241,7 @@ function startGame() {
             function shootWeapon1() {
                 if (iDown == true || jDown == true || kDown == true || lDown == true) {
                     if (weapon1Firerate == 0) {
-                        weapon1Firerate = 50;
+                        weapon1Firerate = 25;
                 let directionX = 0;
                 let directionY = 0;
                 let bulletDirection = 0;
@@ -276,12 +289,12 @@ function startGame() {
                             }
                         },5);
                     }
-                },1)
+                },5)
             }
         }
 
         }
         setTimeout(() => {
             fireWeapon()
-        },1)}
+        },5)}
 }
