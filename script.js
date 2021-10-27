@@ -1,8 +1,17 @@
-const version = "0.2.1";
+const version = "0.2.2";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
 document.body.appendChild(bodyVar);
+
+let logo = document.createElement('div');
+logo.setAttribute('class', 'logo');
+bodyVar.appendChild(logo);
+
+let logoVis = document.createElement('img');
+logoVis.setAttribute('class', 'logoVis');
+logoVis.setAttribute('src','images/Logo.png');
+logo.appendChild(logoVis);
 
 let startButton = document.createElement('div');
 startButton.setAttribute('class','startButton');
@@ -28,6 +37,15 @@ let charChooseText = document.createElement('div');
  jonoCardVis.addEventListener('click', function () {
      darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
   })
+
+  let gabeCard = document.createElement('div');
+  jonoCard.setAttribute('class','gabeCard');
+  let gabeCardVis = document.createElement('img');
+  gabeCardVis.setAttribute('class','gabeCardVis');
+  gabeCardVis.setAttribute('src','images/G Card.png');
+  gabeCardVis.addEventListener('click', function () {
+      darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
+   })
 
   let jonoVis = document.createElement('img');
         jonoVis.setAttribute('class', 'jonoVis');
@@ -61,6 +79,8 @@ let charChooseText = document.createElement('div');
 function charChoose() {
     removeStartButton();
     startButton.style.animation = "disappear 0.5s ease";
+    logo.style.animation = "disappear 1s ease";
+    logo.style.animationFillMode = "forwards";
     startButton.style.animationFillMode = "forwards";
     bodyVar.appendChild(charChooseText);
     function removeStartButton() {
@@ -80,22 +100,44 @@ function charChoose() {
     }
     createCards();
     function createCards() {
-        jonoCard.style.animation = "jonoCardAppear 1s ease";
-        jonoCard.style.animationFillMode = "forwards";
-        jonoCardVis.addEventListener('click', selectJonoCard);
-        bodyVar.appendChild(jonoCard);
-        jonoCard.appendChild(jonoCardVis);
-        function selectJonoCard() {
-            selectedCharacter = 1;
-            jonoCard.style.animation = "jonoCardChoose 1s ease 1";
+        function createJonoCard() {
+            jonoCard.style.animation = "jonoCardAppear 1s ease";
             jonoCard.style.animationFillMode = "forwards";
-            bodyVar.appendChild(characterConfirm);
-            characterConfirm.style.animation = "appear 1s ease";
-            characterConfirm.style.animationFillMode = "forwards";
-            characterConfirm.addEventListener('click', startGame);
-            bodyVar.removeChild(charChooseText);
-            jonoCardVis.removeEventListener('click', selectJonoCard);
+            jonoCardVis.addEventListener('click', selectJonoCard);
+            bodyVar.appendChild(jonoCard);
+            jonoCard.appendChild(jonoCardVis);
+            function selectJonoCard() {
+                selectedCharacter = 1;
+                jonoCard.style.animation = "jonoCardChoose 1s ease 1";
+                jonoCard.style.animationFillMode = "forwards";
+                bodyVar.appendChild(characterConfirm);
+                characterConfirm.style.animation = "appear 1s ease";
+                characterConfirm.style.animationFillMode = "forwards";
+                characterConfirm.addEventListener('click', startGame);
+                bodyVar.removeChild(charChooseText);
+                jonoCardVis.removeEventListener('click', selectJonoCard);
+            }
         }
+        function createGabeCard() {
+            gabeCard.style.animation = "gabeCardAppear 1s ease";
+            gabeCard.style.animationFillMode = "forwards";
+            gabeCardVis.addEventListener('click', selectGabeCard);
+            bodyVar.appendChild(gabeCard);
+            gabeCard.appendChild(gabeCardVis);
+            function selectGabeCard() {
+                selectedCharacter = 1;
+                gabeCard.style.animation = "gabeCardChoose 1s ease 1";
+                gabeCard.style.animationFillMode = "forwards";
+                bodyVar.appendChild(characterConfirm);
+                characterConfirm.style.animation = "appear 1s ease";
+                characterConfirm.style.animationFillMode = "forwards";
+                characterConfirm.addEventListener('click', startGame);
+                bodyVar.removeChild(charChooseText);
+                gabeCardVis.removeEventListener('click', selectGabeCard);
+            }
+        }
+        createJonoCard();
+        createGabeCard();
     }
 }
 

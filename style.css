@@ -14,6 +14,19 @@ body {
     padding: 0px;
 }
 
+.logo {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.logoVis {
+    width: 100vw;
+}
+
 .darkBG {
     width: 150%;
     height: 150%;
@@ -68,7 +81,7 @@ body {
 
 .jonoCard {
     position: absolute;
-    left: 30%;
+    left: 20%;
     top: 55%;
     z-index: 1;
 }
@@ -80,6 +93,24 @@ body {
     z-index: 2;
 }
 .jonoCardVis:hover {
+    width: 23vw;
+    cursor: pointer;
+}
+
+.gabeCard {
+    position: absolute;
+    left: 30%;
+    top: 55%;
+    z-index: 1;
+}
+
+
+.gabeCardVis {
+    width: 22vw;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+}
+.gabeCardVis:hover {
     width: 23vw;
     cursor: pointer;
 }
@@ -177,11 +208,22 @@ body {
 @keyframes jonoCardAppear {
     0% {
         opacity: 0;
-        left: 25%;
+        left: 30%;
     }
     100% {
         opacity: 1;
-        left: 30%;
+        left: 35%;
+    }
+}
+
+@keyframes gabeCardAppear {
+    0% {
+        opacity: 0;
+        left: 40%;
+    }
+    100% {
+        opacity: 1;
+        left: 45%;
     }
 }
 
