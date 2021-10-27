@@ -1,4 +1,4 @@
-const version = "0.1.8";
+const version = "0.2.0";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -52,7 +52,7 @@ let charChooseText = document.createElement('div');
   let money = 0;
   let health = 0;
   let weapon = 0;
-  let weaponDelay = 0;
+  let weapon1Firerate = 50;
 
 function charChoose() {
     removeStartButton();
@@ -204,43 +204,84 @@ function startGame() {
                 }
             }
             if(selectedCharacter == 1) {
-                firerate =  250;
+                firerate =  50;
             }
         fireWeapon()
+        fireWeaponDelays();
+        function fireWeaponDelays() {
+            if(weapon == 1) {
+                weapon1FirerateCD()
+                function weapon1FirerateCD() {
+                    setTimeout(() => {
+                        if (weapon1Firerate > 0) {
+                            weapon1Firerate -= 1;
+                        }
+                        weapon1FirerateCD()
+                    }, 1);
+                }
+            }
+        }
         function fireWeapon() {
             if(weapon == 1) {
                 shootWeapon1()
             }
             function shootWeapon1() {
                 if (iDown == true || jDown == true || kDown == true || lDown == true) {
+                    if (weapon1Firerate == 0) {
+                        weapon1Firerate = 50;
                 let directionX = 0;
                 let directionY = 0;
+                let bulletDirection = 0;
                 let bullet1 = document.createElement('div');
                 bullet1.setAttribute('class', 'bullet1');
                 if (iDown == true) {
                     directionY = -10;
+                    bulletDirection = 0;
                 } else if (jDown == true) {
                     directionX = -10;
+                    bulletDirection = 1;
                 } else if (kDown == true) {
                     directionY = 10;
+                    bulletDirection = 0;
                 } else if (lDown == true) {
                     directionX = 10;
+                    bulletDirection = 1;
                 }
                 setTimeout(() => {
                     let bulletPosX = posX;
                     let bulletPosY = posY;
-                    bullet1.style.left = bulletPosX + "%";
-                    bullet1.style.top = bulletPosY + "%";
-                    bodyVar.appendChild(bullet1);
+                    if(bulletDirection == 1) {
+                        bullet1.style.transform = 'rotate(90deg)'
+                        bulletPosX -= 1;
+                        bulletPosY -= 2.5;
+                        bullet1.style.top = bulletPosY + "%"
+                        bullet1.style.left = bulletPosX + "%";
+                        bodyVar.appendChild(bullet1);
+                    } else {
+                        bullet1.style.left = bulletPosX + "%";
+                        bullet1.style.top = bulletPosY + "%";
+                        bodyVar.appendChild(bullet1);
+                    }
                     moveBullet();
-                },firerate)
-                function moveBullet() {
-
-                }
+                    function moveBullet() {
+                        setTimeout(() => {
+                            if(bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
+                                bulletPosX = bulletPosX + (directionX / 16);
+                                bulletPosY = bulletPosY + (directionY / 9);
+                                bullet1.style.left = bulletPosX + "%";
+                                bullet1.style.top = bulletPosY + "%";
+                                moveBullet();
+                            } else {
+                                bodyVar.removeChild(bullet1);
+                            }
+                        },5);
+                    }
+                },1)
             }
+        }
 
         }
         setTimeout(() => {
             fireWeapon()
-        },firerate)}
+        },1)}
 }
