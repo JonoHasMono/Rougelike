@@ -1,4 +1,4 @@
-const version = "0.2.7";
+const version = "0.2.8";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -230,6 +230,55 @@ function startGame() {
             }, 5);
         }
     }
+
+    spawnWaves();
+
+    function spawnWaves() {
+        let wavePower = 0;
+        spawnWave1();
+        function spawnWave1() {
+            wavepower = 5;
+            spawnEnemy1();
+            function spawnEnemy1() {
+                let enemy1 = document.createElement('div');
+                let enemy1HP = 10;
+                let enemy1Hitbox = enemy1.getBoundingClientRect();
+                enemy1.setAttribute('class', 'enemy1');
+                enemyPosX = 2
+                enemyPosY = (Math.random() * 80) + 10;
+                enemy1.style.left = enemyPosX + '%';
+                enemy1.style.top = enemyPosY + '%';
+                bodyVar.appendChild(enemy1);
+                moveEnemy1();
+                function moveEnemy1() {
+                    if (enemyPosX < posX) {
+                        enemyPosX += 0.25;
+                        enemy1.style.left = enemyPosX + '%'
+                    } else if (enemyPosX > posX) {
+                        enemyPosX -= 0.25;
+                        enemy1.style.left = enemyPosX + '%'
+                    }
+                    if (enemyPosY < posY) {
+                        enemyPosY += 0.25 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
+                    } else if (enemyPosY > posY) {
+                        enemyPosY -= 0.25 * 1.5;
+                        enemy1.style.top = enemyPosY + '%'
+                    }
+                    enemy1Hitbox = enemy1.getBoundingClientRect();
+                    if (bullet1Hitbox.left >= enemy1Hitbox.left && bullet1Hitbox.right <= enemy1Hitbox.right) {
+                        (enemy1Hitbox).closest('.bullet1').removeChild();
+                    }
+
+
+                    setTimeout(() => {
+                        moveEnemy1();
+                    }, 25);
+                }
+            }
+        }
+    }
+
     document.addEventListener('keydown', shootDown);
     document.addEventListener('keyup', shootUp);
     function shootDown(e) {
@@ -310,6 +359,7 @@ function startGame() {
                 setTimeout(() => {
                     let bulletPosX = posX;
                     let bulletPosY = posY;
+                    let successfulHit = false;
                     if(bulletDirection == 1) {
                         bullet1.style.transform = 'rotate(90deg)'
                         bulletPosX -= 1;
@@ -325,7 +375,7 @@ function startGame() {
                     moveBullet();
                     function moveBullet() {
                         setTimeout(() => {
-                            if(bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
+                            if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
                                 bulletPosX = bulletPosX + (directionX / 16);
                                 bulletPosY = bulletPosY + (directionY / 9);
@@ -345,53 +395,5 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
-    
 
-    spawnWaves();
-
-    function spawnWaves() {
-        let wavePower = 0;
-        spawnWave1();
-        function spawnWave1() {
-            wavepower = 5;
-            spawnEnemy1();
-            function spawnEnemy1() {
-                let enemy1 = document.createElement('div');
-                let enemy1HP = 10;
-                let enemy1Hitbox = enemy1.getBoundingClientRect();
-                enemy1.setAttribute('class', 'enemy1');
-                enemyPosX = 2
-                enemyPosY = (Math.random() * 80) + 10;
-                enemy1.style.left = enemyPosX + '%';
-                enemy1.style.top = enemyPosY + '%';
-                bodyVar.appendChild(enemy1);
-                moveEnemy1();
-                function moveEnemy1() {
-                    if (enemyPosX < posX) {
-                        enemyPosX += 0.25;
-                        enemy1.style.left = enemyPosX + '%'
-                    } else if (enemyPosX > posX) {
-                        enemyPosX -= 0.25;
-                        enemy1.style.left = enemyPosX + '%'
-                    }
-                    if (enemyPosY < posY) {
-                        enemyPosY += 0.25 * 1.5;
-                        enemy1.style.top = enemyPosY + '%'
-                    } else if (enemyPosY > posY) {
-                        enemyPosY -= 0.25 * 1.5;
-                        enemy1.style.top = enemyPosY + '%'
-                    }
-                    enemy1Hitbox = enemy1.getBoundingClientRect();
-                    if (bullet1Hitbox.left >= enemy1Hitbox.left && bullet1Hitbox.right <= enemy1Hitbox.right) {
-                        alert('bruh');
-                    }
-
-
-                    setTimeout(() => {
-                        moveEnemy1();
-                    }, 25);
-                }
-            }
-        }
-    }
 }
