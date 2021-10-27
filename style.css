@@ -208,7 +208,7 @@ body {
 @keyframes jonoCardAppear {
     0% {
         opacity: 0;
-        left: 30%;
+        left: 25%;
     }
     100% {
         opacity: 1;
@@ -219,21 +219,21 @@ body {
 @keyframes gabeCardAppear {
     0% {
         opacity: 0;
-        left: 40%;
+        left: 55%;
     }
     100% {
         opacity: 1;
-        left: 45%;
+        left: 65%;
     }
 }
 
 @keyframes jonoCardChoose {
     0% {
-        left: 30%;
+        left: 35%;
         top: 55%;
     }
     100% {
-        left: 35%;
+        left: 25%;
         top: 52.5%;
     }
 }

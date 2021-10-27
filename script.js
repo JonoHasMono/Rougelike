@@ -1,4 +1,4 @@
-const version = "0.2.2";
+const version = "0.2.3";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -35,16 +35,16 @@ let charChooseText = document.createElement('div');
  jonoCardVis.setAttribute('class','jonoCardVis');
  jonoCardVis.setAttribute('src','images/J Card.png');
  jonoCardVis.addEventListener('click', function () {
-     darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
+     darkBG.style.backgroundImage = "linear-gradient(#020112, #006220)"; 
   })
 
   let gabeCard = document.createElement('div');
-  jonoCard.setAttribute('class','gabeCard');
+  gabeCard.setAttribute('class','gabeCard');
   let gabeCardVis = document.createElement('img');
   gabeCardVis.setAttribute('class','gabeCardVis');
   gabeCardVis.setAttribute('src','images/G Card.png');
   gabeCardVis.addEventListener('click', function () {
-      darkBG.style.backgroundImage = "linear-gradient(#040122, #006220)"; 
+      darkBG.style.backgroundImage = "linear-gradient(#020112, #004064)"; 
    })
 
   let jonoVis = document.createElement('img');
@@ -107,6 +107,7 @@ function charChoose() {
             bodyVar.appendChild(jonoCard);
             jonoCard.appendChild(jonoCardVis);
             function selectJonoCard() {
+                bodyVar.removeChild(gabeCard);
                 selectedCharacter = 1;
                 jonoCard.style.animation = "jonoCardChoose 1s ease 1";
                 jonoCard.style.animationFillMode = "forwards";
@@ -121,7 +122,7 @@ function charChoose() {
         function createGabeCard() {
             gabeCard.style.animation = "gabeCardAppear 1s ease";
             gabeCard.style.animationFillMode = "forwards";
-            gabeCardVis.addEventListener('click', selectGabeCard);
+            //gabeCardVis.addEventListener('click', selectGabeCard);
             bodyVar.appendChild(gabeCard);
             gabeCard.appendChild(gabeCardVis);
             function selectGabeCard() {
@@ -137,7 +138,9 @@ function charChoose() {
             }
         }
         createJonoCard();
-        createGabeCard();
+        setTimeout(() => {
+            createGabeCard();
+        },100)
     }
 }
 
