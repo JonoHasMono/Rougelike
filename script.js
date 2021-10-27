@@ -1,4 +1,4 @@
-const version = "0.2.6";
+const version = "0.2.7";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -358,6 +358,7 @@ function startGame() {
             function spawnEnemy1() {
                 let enemy1 = document.createElement('div');
                 let enemy1HP = 10;
+                let enemy1Hitbox = enemy1.getBoundingClientRect();
                 enemy1.setAttribute('class', 'enemy1');
                 enemyPosX = 2
                 enemyPosY = (Math.random() * 80) + 10;
@@ -380,8 +381,9 @@ function startGame() {
                         enemyPosY -= 0.25 * 1.5;
                         enemy1.style.top = enemyPosY + '%'
                     }
-                    if (bullet1Hitbox < enemyPosX) {
-
+                    enemy1Hitbox = enemy1.getBoundingClientRect();
+                    if (bullet1Hitbox.left >= enemy1Hitbox.left && bullet1Hitbox.right <= enemy1Hitbox.right) {
+                        alert('bruh');
                     }
 
 
