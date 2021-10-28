@@ -1,4 +1,4 @@
-const version = "0.2.9";
+const version = "0.3.0";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -190,16 +190,16 @@ function startGame() {
                         enemy1.style.top = enemyPosY + '%'
                     }
                     enemy1Hitbox = enemy1.getBoundingClientRect();
-                    if ((bullet1Hitbox.left <= (enemy1Hitbox.left + 25) && bullet1Hitbox.right >= (enemy1Hitbox.right - 25))) {
+                    if ((bullet1Hitbox.x <= (enemy1Hitbox.x + 10) && bullet1Hitbox.x >= (enemy1Hitbox.x - 10))) {
                         setTimeout(() => {
                             enemy1HP -= 4
                             console.log("bruh");
                             if (enemy1HP <= 0) {
                                 enemy1.remove();
+                                enemy1Hitbox = 10000;
                             }
                         }, 10);
                     }
-
 
                     setTimeout(() => {
                         moveEnemy1();
@@ -208,6 +208,7 @@ function startGame() {
 
             }
         }
+    }
         darkBG.style.animation = "disappear 1s ease";
     darkBG.style.animationFillMode = "forwards";
     bodyVar.removeChild(characterConfirm);
@@ -375,6 +376,7 @@ function startGame() {
                     let bulletPosX = posX;
                     let bulletPosY = posY;
                     let bullet1Damage = 4;
+                    bullet1Hitbox = bullet1.getBoundingClientRect();
                     if(bulletDirection == 1) {
                         bullet1.style.transform = 'rotate(90deg)'
                         bulletPosX -= 1;
@@ -391,13 +393,12 @@ function startGame() {
                     function moveBullet() {
                         setTimeout(() => {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if (bullet1Hitbox.left <= (enemy1Hitbox.left + 25) && bullet1Hitbox.right >= (enemy1Hitbox.right - 25)) {
+                                if (bullet1Hitbox.x <= (enemy1Hitbox.x + 10) && bullet1Hitbox.x >= (enemy1Hitbox.x - 10)) {
+                                    console.log('[[');
+                                    bodyVar.removeChild(bullet1);
+                                    bullet1Hitbox = 0;
                                     setTimeout(() => {
-                                        bodyVar.removeChild(bullet1);
-                                        if(bullet1Hitbox !== 0) {
-                                            bullet1Hitbox = 0;
-                                        }
-                                    }, 2);
+                                    }, 5);
                             } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bulletPosX = bulletPosX + (directionX / 16);
                                 bulletPosY = bulletPosY + (directionY / 9);
@@ -406,9 +407,10 @@ function startGame() {
                                 moveBullet();
                             } else {
                                 bodyVar.removeChild(bullet1);
+                                bullet1Hitbox = 0;
                             }
                             
-                        },1);
+                        },2);
                     }
                 },5)
             }
@@ -418,6 +420,5 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
-    }
 
 }
