@@ -1,4 +1,4 @@
-const version = "0.3.0";
+const version = "0.3.2";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -179,8 +179,10 @@ function startGame() {
                 bodyVar.appendChild(enemy1);
                 enemy1.appendChild(enemy1HPNum);
                 let iframe = 0;
+                let alive = true;
                 moveEnemy1();
                 function moveEnemy1() {
+                    if (alive == true) {
                     if (enemyPosX < posX) {
                         enemyPosX += 0.10;
                         enemy1.style.left = enemyPosX + '%'
@@ -196,8 +198,8 @@ function startGame() {
                         enemy1.style.top = enemyPosY + '%'
                     }
                     enemy1Hitbox = enemy1.getBoundingClientRect();
-                    if(bullet1Hitbox.x <= (enemy1Hitbox.x + 20) 
-                    && bullet1Hitbox.x >= (enemy1Hitbox.x - 20) 
+                    if(bullet1Hitbox.x <= (enemy1Hitbox.x + 40) 
+                    && bullet1Hitbox.x >= (enemy1Hitbox.x - 40) 
                     && bullet1Hitbox.y <= (enemy1Hitbox.y + 50) 
                     && bullet1Hitbox.y >= (enemy1Hitbox.y - 50)
                     ) {
@@ -212,9 +214,10 @@ function startGame() {
                                 console.log("bruh");
                                 if (enemy1HP <= 0) {
                                     enemy1.remove();
+                                    alive = false ;
                                     enemy1Hitbox = 1000;
                                 }
-                            }, 10);
+                            }, 15);
                         }
                     }
 
@@ -222,6 +225,7 @@ function startGame() {
                         moveEnemy1();
                     }, 5);
                 }
+            }
 
             }
         }
@@ -378,16 +382,16 @@ function startGame() {
                 let bullet1 = document.createElement('div');
                 bullet1.setAttribute('class', 'bullet1');
                 if (iDown == true) {
-                    directionY = -8;
+                    directionY = -6;
                     bulletDirection = 0;
                 } else if (jDown == true) {
-                    directionX = -8;
+                    directionX = -6;
                     bulletDirection = 1;
                 } else if (kDown == true) {
-                    directionY = 8;
+                    directionY = 6;
                     bulletDirection = 0;
                 } else if (lDown == true) {
-                    directionX = 8;
+                    directionX = 6;
                     bulletDirection = 1;
                 }
                 setTimeout(() => {
@@ -398,7 +402,7 @@ function startGame() {
                     if(bulletDirection == 1) {
                         bullet1.style.transform = 'rotate(90deg)'
                         bulletPosX -= 1;
-                        bulletPosY -= 2.5;
+                        bulletPosY -= 4.25;
                         bullet1.style.top = bulletPosY + "%"
                         bullet1.style.left = bulletPosX + "%";
                         bodyVar.appendChild(bullet1);
@@ -411,10 +415,10 @@ function startGame() {
                     function moveBullet() {
                         setTimeout(() => {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 50) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 50) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 50) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 50) ) {
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 30) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 30) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 40) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 40) ) {
                                     console.log('[[');
                                     bullet1.remove();
                                     bullet1Hitbox = 0;
