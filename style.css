@@ -167,7 +167,15 @@ body {
     z-index: 3;
 }
 
-
+.bulletms {
+    width: 1.25vw;
+    height: 1.25vw;
+    background-color: rgb(255, 255, 255);
+    border: 0.3vw solid rgb(0,255,100);
+    position: absolute;
+    transform:translate(-50%,-50%);
+    z-index: 3;
+}
 
 .enemy1 {
     width: 3.5vw;

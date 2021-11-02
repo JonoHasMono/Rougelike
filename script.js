@@ -1,4 +1,4 @@
-const version = "0.3.4";
+const version = "0.3.5";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -74,6 +74,11 @@ let charChooseText = document.createElement('div');
   let jDown = false;
   let kDown = false;
   let lDown = false;
+  let fdown = false;
+  let hdown = false;
+  let recentFire = 0;
+  let ability1Active = false;
+  let msDuration = 1500;
 
   let wepPosX = 0;
   let wepPosY = 0;
@@ -82,6 +87,7 @@ let charChooseText = document.createElement('div');
   let health = 0;
   let weapon = 0;
   let weapon1Firerate = 50;
+  let msFirerate = 100;
 
   let bullet1Hitbox = 0;
   let enemy1Hitbox = 0;
@@ -206,10 +212,10 @@ function startGame() {
                         enemy1.style.top = enemyPosY + '%'
                     }
                     enemy1Hitbox = enemy1.getBoundingClientRect();
-                    if(bullet1Hitbox.x <= (enemy1Hitbox.x + 85) 
-                    && bullet1Hitbox.x >= (enemy1Hitbox.x - 65) 
-                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 85) 
-                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 65)
+                    if(bullet1Hitbox.x <= (enemy1Hitbox.x + 95) 
+                    && bullet1Hitbox.x >= (enemy1Hitbox.x - 75) 
+                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 95) 
+                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 75)
                     ) {
                         console.log('pls hit');
                         if(iframe == 0) {
@@ -360,17 +366,127 @@ function startGame() {
             key = key.toString();
             if (key == ' KeyI') {
                 iDown = false;
+                recentFire = 1;
                 } else if (key == ' KeyJ') {
                     jDown = false;
+                    recentFire = 2;
                 } else if (key == ' KeyK') {
                     kDown = false;
+                    recentFire = 3;
                 } else if (key == ' KeyL') {
                     lDown = false;
+                    recentFire = 4;
                 }
             }
             if(selectedCharacter == 1) {
                 firerate =  50;
             }
+
+            document.addEventListener('keydown', useAbility);
+            function useAbility(e) {
+                let key = ` ${e.code}`
+                key = key.toString();
+                if (key == ' KeyF') {
+                    useAbility1();
+                    } else if (key == ' KeyH') {
+                        useAbility2();
+                    }
+                }
+
+            // Abilities (Primary and Secondary)
+
+            function useAbility1() {
+                if(ability1Active == false){
+                    ability1Active = true;
+                    setTimeout(() => {
+                        ability1Active = false
+                    }, msDuration);
+                if(selectedCharacter == 1) {
+                    metalStorm();
+                    function metalStorm() {
+                        if (ability1Active == true) {
+                bullet1Hitbox = 0;
+                let directionX = 0;
+                let directionY = 0;
+                let bullet1 = document.createElement('div');
+                bullet1.setAttribute('class', 'bulletms');
+                if (recentFire == 1) {
+                    directionY = -6;
+                    bulletDirection = 0;
+                } else if (recentFire == 2) {
+                    directionX = -6;
+                    bulletDirection = 1;
+                } else if (recentFire == 3) {
+                     directionY = 6;
+                    bulletDirection = 0;
+                } else if (recentFire == 4) {
+                     directionX = 6;
+                    bulletDirection = 1;
+                }
+                setTimeout(() => {
+                    let bulletPosX = posX;
+                    let bulletPosY = posY;
+                    let randomX = (Math.random() * 3) - 1.5
+                    let randomY = (Math.random() * 3) - 1.5
+                    let bullet1Damage = 4;
+                    bullet1Hitbox = bullet1.getBoundingClientRect();
+                        bullet1.style.left = bulletPosX + randomX + "%";
+                        bullet1.style.top = bulletPosY + randomY + "%";
+                        bodyVar.appendChild(bullet1);
+                    
+                    let bulletHit = true;
+                    moveBullet();
+                    function moveBullet() {
+                        setTimeout(() => {
+                            if (bulletHit == true) {
+                                bullet1Hitbox = bullet1.getBoundingClientRect();
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 45) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 30) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 45) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 30) ) {
+                                    if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
+                                        bulletPosX = bulletPosX + (directionX / 16);
+                                        bulletPosY = bulletPosY + (directionY / 9);
+                                        bullet1.style.left = bulletPosX + randomX + "%";
+                                        bullet1.style.top = bulletPosY + randomY + "%";
+                                        moveBullet();
+                                    } 
+                                    bulletHit = false;
+                                    if(bulletHit == false) {
+                                        setTimeout(() => {
+                                            deleteBullet()
+                                        }, 20);
+                                    }
+                            } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
+                                bulletPosX = bulletPosX + (directionX / 16);
+                                bulletPosY = bulletPosY + (directionY / 9);
+                                bullet1.style.left = bulletPosX + randomX + "%";
+                                bullet1.style.top = bulletPosY + randomY + "%";
+                                moveBullet();
+                            } else {
+                                bulletHit = false;
+                                    if(bulletHit == false) {
+                                        deleteBullet()
+                                    }
+                            }
+                            function deleteBullet() {
+                                setTimeout(() => {
+                                    console.log('[[');
+                                bullet1.remove();
+                                bullet1Hitbox = 0;
+                                },0);
+                            }
+                        }
+                        },2);
+                    }
+                    metalStorm();
+                        }, msFirerate);
+                    }
+                }
+            }
+        }
+    }
+
         fireWeapon()
         fireWeaponDelays();
         function fireWeaponDelays() {
@@ -401,16 +517,16 @@ function startGame() {
                 let bullet1 = document.createElement('div');
                 bullet1.setAttribute('class', 'bullet1');
                 if (iDown == true) {
-                    directionY = -6;
+                    directionY = -8;
                     bulletDirection = 0;
                 } else if (jDown == true) {
-                    directionX = -6;
+                    directionX = -8;
                     bulletDirection = 1;
                 } else if (kDown == true) {
-                     directionY = 6;
+                     directionY = 8;
                     bulletDirection = 0;
                 } else if (lDown == true) {
-                     directionX = 6;
+                     directionX = 8;
                     bulletDirection = 1;
                 }
                 setTimeout(() => {
@@ -436,9 +552,9 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 60) 
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 55) 
                                 && bullet1Hitbox.x >= (enemy1Hitbox.x - 40) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 60) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 55) 
                                 && bullet1Hitbox.y >= (enemy1Hitbox.y - 40) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
@@ -481,5 +597,5 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
-
+    
 }
