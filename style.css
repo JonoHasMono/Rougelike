@@ -200,6 +200,18 @@ body {
     transform: translate(0%, 10%);
 }
 
+.money {
+    position:absolute;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    bottom: 0%;
+    left: 50%;
+    font-size: 3.5vw;
+    color: rgb(255, 255, 150);
+    -webkit-text-stroke: 0.25vw rgb(255, 255, 150);
+    text-align: center;
+    transform: translate(-50%,-50%);
+}
+
 @keyframes charChooseTextAnim {
     0% {
         opacity: 0;
