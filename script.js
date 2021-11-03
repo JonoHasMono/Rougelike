@@ -1,4 +1,4 @@
-const version = "0.3.5";
+const version = "0.3.7";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -63,6 +63,7 @@ let charChooseText = document.createElement('div');
   characterConfirm.setAttribute('class', 'characterConfirm');
   characterConfirm.innerHTML = "Ready?";
 
+  let enemiesRemaining = 0
   let firerate = 0;
   let posX = 50;
   let posY = 50;
@@ -88,6 +89,7 @@ let charChooseText = document.createElement('div');
   let weapon = 0;
   let weapon1Firerate = 50;
   let msFirerate = 100;
+  let playerHP = 0;
 
   let bullet1Hitbox = 0;
   let enemy1Hitbox = 0;
@@ -163,21 +165,20 @@ function charChoose() {
 function startGame() {
     bodyVar.appendChild(money);
 
-
     spawnWaves();
 
     function spawnWaves() {
         let wavePower = 0;
         spawnWave1();
         function spawnWave1() {
-            wavepower = 5;
+            wavepower = 10;
             spawnEnemy1();
             function spawnEnemy1() {
                 if (wavepower > 1) {
                     setTimeout(() => {
                         wavepower --
                         spawnEnemy1();
-                    },2000)
+                    },500)
                 }
                 let enemy1 = document.createElement('div');
                 let enemy1HP = 10;
@@ -187,7 +188,7 @@ function startGame() {
                 enemy1.setAttribute('class', 'enemy1');
                 enemy1HPNum.setAttribute('class', 'enemy1HPNum');
                 let enemyPosX = -2
-                let enemyPosY = (Math.random() * 80) + 10;
+                let enemyPosY = (Math.random() * 115) - 5;
                 enemy1.style.left = enemyPosX + '%';
                 enemy1.style.top = enemyPosY + '%';
                 bodyVar.appendChild(enemy1);
@@ -198,17 +199,17 @@ function startGame() {
                 function moveEnemy1() {
                     if (alive == true) {
                     if (enemyPosX < posX) {
-                        enemyPosX += 0.10;
+                        enemyPosX += 0.08;
                         enemy1.style.left = enemyPosX + '%'
                     } else if (enemyPosX > posX) {
-                        enemyPosX -= 0.10;
+                        enemyPosX -= 0.08;
                         enemy1.style.left = enemyPosX + '%'
                     }
                     if (enemyPosY < posY) {
-                        enemyPosY += 0.10 * 1.5;
+                        enemyPosY += 0.08 * 1.25;
                         enemy1.style.top = enemyPosY + '%'
                     } else if (enemyPosY > posY) {
-                        enemyPosY -= 0.10 * 1.5;
+                        enemyPosY -= 0.08 * 1.25;
                         enemy1.style.top = enemyPosY + '%'
                     }
                     enemy1Hitbox = enemy1.getBoundingClientRect();
@@ -241,7 +242,7 @@ function startGame() {
                                 console.log("no")
                                 enemy1.removeAttribute('class','enemy1Hit');
                                 enemy1.setAttribute('class','enemy1');
-                            }, 80);
+                            }, 50);
                         }
                         }
                     }
@@ -426,8 +427,8 @@ function startGame() {
                 setTimeout(() => {
                     let bulletPosX = posX;
                     let bulletPosY = posY;
-                    let randomX = (Math.random() * 3) - 1.5
-                    let randomY = (Math.random() * 3) - 1.5
+                    let randomX = (Math.random() * 3) - 2.5
+                    let randomY = (Math.random() * 3) - 2.5
                     let bullet1Damage = 4;
                     bullet1Hitbox = bullet1.getBoundingClientRect();
                         bullet1.style.left = bulletPosX + randomX + "%";
@@ -440,10 +441,10 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 45) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 30) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 45) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 30) ) {
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 50) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 35) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 50) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 35) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
@@ -455,7 +456,7 @@ function startGame() {
                                     if(bulletHit == false) {
                                         setTimeout(() => {
                                             deleteBullet()
-                                        }, 20);
+                                        }, 0);
                                     }
                             } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bulletPosX = bulletPosX + (directionX / 16);
@@ -552,10 +553,10 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 55) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 40) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 55) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 40) ) {
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 70) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 55) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 70) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 55) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
@@ -565,7 +566,9 @@ function startGame() {
                                     } 
                                     bulletHit = false;
                                     if(bulletHit == false) {
-                                        deleteBullet()
+                                        setTimeout(() => {
+                                            deleteBullet()
+                                        }, 10);
                                     }
                             } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bulletPosX = bulletPosX + (directionX / 16);
