@@ -212,13 +212,28 @@ body {
 .money {
     position:absolute;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    bottom: 0%;
+    bottom: -1%;
     left: 50%;
     font-size: 3.5vw;
+    opacity: 0;
     color: rgb(255, 255, 150);
     -webkit-text-stroke: 0.25vw rgb(255, 255, 150);
     text-align: center;
     transform: translate(-50%,-50%);
+}
+
+.playerHPVis {
+    position:absolute;
+    bottom: 10%;
+    height: 1vw;
+    width: 1vw;
+    left: 50%;
+    font-size: 3.5vw;
+    background-color: rgb(0, 255, 100);
+    text-align: center;
+    transform: translate(-50%,-50%);
+    border: 0.25vw solid black;
+    box-shadow: 0vw 0.5vw 0vw black;
 }
 
 @keyframes spin {

@@ -1,4 +1,4 @@
-const version = "0.3.7";
+const version = "0.3.8";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -24,9 +24,13 @@ money.setAttribute('class', 'money');
 money.setAttribute('id', 'money');
 let moneyval = 0;
 money.innerHTML = "$" + moneyval;
+bodyVar.appendChild(money);
 
 
 let selectedCharacter = 0;
+
+let playerHPVis = document.createElement('div');
+playerHPVis.setAttribute('class', 'playerHPVis');
 
 let darkBG = document.createElement('div');
 darkBG.setAttribute('class', 'darkBG');
@@ -163,7 +167,18 @@ function charChoose() {
 }
 
 function startGame() {
-    bodyVar.appendChild(money);
+    if(selectedCharacter == 1) {
+        spawnJono();
+        playerHP = 3;
+        playerHPVis.style.width = (playerHP * 3) + "vw"
+    } 
+
+    spawnGUI();
+    function spawnGUI() {
+        bodyVar.appendChild(playerHPVis);
+        document.getElementById('money').style.opacity = 1;
+    }
+
 
     spawnWaves();
 
@@ -188,7 +203,7 @@ function startGame() {
                 enemy1.setAttribute('class', 'enemy1');
                 enemy1HPNum.setAttribute('class', 'enemy1HPNum');
                 let enemyPosX = -2
-                let enemyPosY = (Math.random() * 115) - 5;
+                let enemyPosY = (Math.random() * 80) + 10;
                 enemy1.style.left = enemyPosX + '%';
                 enemy1.style.top = enemyPosY + '%';
                 bodyVar.appendChild(enemy1);
@@ -198,25 +213,13 @@ function startGame() {
                 moveEnemy1();
                 function moveEnemy1() {
                     if (alive == true) {
-                    if (enemyPosX < posX) {
                         enemyPosX += 0.08;
                         enemy1.style.left = enemyPosX + '%'
-                    } else if (enemyPosX > posX) {
-                        enemyPosX -= 0.08;
-                        enemy1.style.left = enemyPosX + '%'
-                    }
-                    if (enemyPosY < posY) {
-                        enemyPosY += 0.08 * 1.25;
-                        enemy1.style.top = enemyPosY + '%'
-                    } else if (enemyPosY > posY) {
-                        enemyPosY -= 0.08 * 1.25;
-                        enemy1.style.top = enemyPosY + '%'
-                    }
                     enemy1Hitbox = enemy1.getBoundingClientRect();
                     if(bullet1Hitbox.x <= (enemy1Hitbox.x + 95) 
                     && bullet1Hitbox.x >= (enemy1Hitbox.x - 75) 
-                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 95) 
-                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 75)
+                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 75) 
+                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 55)
                     ) {
                         console.log('pls hit');
                         if(iframe == 0) {
@@ -242,7 +245,7 @@ function startGame() {
                                 console.log("no")
                                 enemy1.removeAttribute('class','enemy1Hit');
                                 enemy1.setAttribute('class','enemy1');
-                            }, 50);
+                            }, 200);
                         }
                         }
                     }
@@ -260,9 +263,6 @@ function startGame() {
     darkBG.style.animationFillMode = "forwards";
     bodyVar.removeChild(characterConfirm);
     bodyVar.removeChild(jonoCard);
-    if(selectedCharacter == 1) {
-        spawnJono();
-    } 
         
 
     function spawnJono() {
@@ -443,8 +443,8 @@ function startGame() {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
                                 if(bullet1Hitbox.x <= (enemy1Hitbox.x + 50) 
                                 && bullet1Hitbox.x >= (enemy1Hitbox.x - 35) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 50) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 35) ) {
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 30) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 15) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
