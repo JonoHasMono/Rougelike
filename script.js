@@ -1,8 +1,13 @@
-const version = "0.4.0";
+const version = "0.4.1";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
 document.body.appendChild(bodyVar);
+
+const bodyVar2 = document.createElement('div');
+bodyVar2.setAttribute('class','bodyVar');
+bodyVar2.setAttribute('id','bodyVar2');
+document.body.appendChild(bodyVar2);
 
 let logo = document.createElement('div');
 logo.setAttribute('class', 'logo');
@@ -31,8 +36,12 @@ let enemyRemainVis = document.createElement('div');
 enemyRemainVis.setAttribute('class','enemyRemainVis');
 enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
 
+let gameOver = document.createElement('div');
+gameOver.setAttribute('class', 'gameOver');
+gameOver.innerHTML = 'GAME OVER';
 
 let selectedCharacter = 0;
+let gameOverCheck = false;
 
 let playerHPVis = document.createElement('div');
 playerHPVis.setAttribute('class', 'playerHPVis');
@@ -223,7 +232,7 @@ function startGame() {
                 function moveEnemy1() {
                     if(enemyPosX < 105) {
                     if (alive == true) {
-                        enemyPosX += 0.04;
+                        enemyPosX += 1;
                         enemy1.style.left = enemyPosX + '%'
                     enemy1Hitbox = enemy1.getBoundingClientRect();
                     if(bullet1Hitbox.x <= (enemy1Hitbox.x + 95) 
@@ -271,6 +280,7 @@ function startGame() {
                     enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
                     playerHP -= 1;
                     playerHPVis.style.width = (playerHP * 3) + "vw"
+                    checkHP();
                 }
                 }
             }
@@ -579,10 +589,10 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 85) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 55) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 65) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 50) ) {
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 75) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 125) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 115) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 90) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
@@ -626,5 +636,28 @@ function startGame() {
         setTimeout(() => {
             fireWeapon()
         },5)}
+
+
+        function checkHP() {
+            if(playerHP <= 0) {
+                if(gameOverCheck == false) {
+                gameOverCheck = true;
+                bodyVar.remove();
+                spawnGameOverGUI();
+                function spawnGameOverGUI() {
+                    bodyVar2.appendChild(gameOver);
+                }
+                createDarkBG();
+                function createDarkBG() {
+                    darkBG.style.backgroundImage = 'linear-gradient(#040122, #500000)';
+                    bodyVar2.appendChild(darkBG);
+                    darkBG.style.animation = "appear 1s ease";
+                    darkBG.style.animationFillMode = "forwards";
+                }
+                gameOver.style.animation = "gameOverTextAnim 1s ease 1";
+                gameOver.style.animationFillMode = "forwards";
+                }
+            }
+        }
     
 }
