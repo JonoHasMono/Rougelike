@@ -221,6 +221,7 @@ function startGame() {
                 let alive = true;
                 moveEnemy1();
                 function moveEnemy1() {
+                    if(enemyPosX < 105) {
                     if (alive == true) {
                         enemyPosX += 0.04;
                         enemy1.style.left = enemyPosX + '%'
@@ -264,6 +265,13 @@ function startGame() {
                     setTimeout(() => {
                         moveEnemy1();
                     }, 5);
+                } else {
+                    enemy1.remove();
+                    enemiesRemaining -= 1;
+                    enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
+                    playerHP -= 1;
+                    playerHPVis.style.width = (playerHP * 3) + "vw"
+                }
                 }
             }
 
