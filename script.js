@@ -187,6 +187,15 @@ function startGame() {
         playerHPVis.style.width = (playerHP * 3) + "vw"
     } 
 
+    // AREA RESERVED FOR UPGRADES
+
+
+
+
+
+
+
+
 
     spawnGUI();
     function spawnGUI() {
@@ -232,13 +241,13 @@ function startGame() {
                 function moveEnemy1() {
                     if(enemyPosX < 105) {
                     if (alive == true) {
-                        enemyPosX += 1;
+                        enemyPosX += 0.04;
                         enemy1.style.left = enemyPosX + '%'
                     enemy1Hitbox = enemy1.getBoundingClientRect();
                     if(bullet1Hitbox.x <= (enemy1Hitbox.x + 95) 
                     && bullet1Hitbox.x >= (enemy1Hitbox.x - 75) 
-                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 75) 
-                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 55)
+                    && bullet1Hitbox.y <= (enemy1Hitbox.y + 45) 
+                    && bullet1Hitbox.y >= (enemy1Hitbox.y - 35)
                     ) {
                         console.log('pls hit');
                         if(iframe == 0) {
@@ -589,10 +598,10 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 75) 
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 35) 
                                 && bullet1Hitbox.x >= (enemy1Hitbox.x - 125) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 115) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 90) ) {
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 45) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 30) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
@@ -626,7 +635,7 @@ function startGame() {
                                 },0);
                             }
                         }
-                        },2);
+                        },1);
                     }
                 },1)
             }
