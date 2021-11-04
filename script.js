@@ -1,4 +1,4 @@
-const version = "0.3.8";
+const version = "0.3.9";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -25,6 +25,8 @@ money.setAttribute('id', 'money');
 let moneyval = 0;
 money.innerHTML = "$" + moneyval;
 bodyVar.appendChild(money);
+
+let enemiesRemainingVis = document.createElement('div');
 
 
 let selectedCharacter = 0;
@@ -173,6 +175,7 @@ function startGame() {
         playerHPVis.style.width = (playerHP * 3) + "vw"
     } 
 
+
     spawnGUI();
     function spawnGUI() {
         bodyVar.appendChild(playerHPVis);
@@ -186,14 +189,15 @@ function startGame() {
         let wavePower = 0;
         spawnWave1();
         function spawnWave1() {
-            wavepower = 10;
+            wavepower = 6;
+            enemiesRemaining = 6;
             spawnEnemy1();
             function spawnEnemy1() {
                 if (wavepower > 1) {
                     setTimeout(() => {
                         wavepower --
                         spawnEnemy1();
-                    },500)
+                    },1000)
                 }
                 let enemy1 = document.createElement('div');
                 let enemy1HP = 10;
@@ -213,7 +217,7 @@ function startGame() {
                 moveEnemy1();
                 function moveEnemy1() {
                     if (alive == true) {
-                        enemyPosX += 0.08;
+                        enemyPosX += 0.04;
                         enemy1.style.left = enemyPosX + '%'
                     enemy1Hitbox = enemy1.getBoundingClientRect();
                     if(bullet1Hitbox.x <= (enemy1Hitbox.x + 95) 
@@ -238,6 +242,7 @@ function startGame() {
                                     console.log("x_x");
                                     moneyval = moneyval + 1;
                                     document.getElementById('money').innerHTML = "$" + moneyval;
+                                    enemiesRemaining -= 1;
                                 }
                             }, 10);
                             setTimeout(() => {
@@ -440,11 +445,15 @@ function startGame() {
                     function moveBullet() {
                         setTimeout(() => {
                             if (bulletHit == true) {
+                                console.log(bulletPosX);
+                                console.log(bulletPosY);
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 50) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 35) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 30) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 15) ) {
+
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 20) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 10) 
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 20) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 10) ) {
+                                    console.log("do the thing")
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
@@ -458,11 +467,13 @@ function startGame() {
                                             deleteBullet()
                                         }, 0);
                                     }
+                                
                             } else if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                 bulletPosX = bulletPosX + (directionX / 16);
                                 bulletPosY = bulletPosY + (directionY / 9);
                                 bullet1.style.left = bulletPosX + randomX + "%";
                                 bullet1.style.top = bulletPosY + randomY + "%";
+                                console.log('amogus')
                                 moveBullet();
                             } else {
                                 bulletHit = false;
@@ -472,12 +483,13 @@ function startGame() {
                             }
                             function deleteBullet() {
                                 setTimeout(() => {
-                                    console.log('[[');
                                 bullet1.remove();
                                 bullet1Hitbox = 0;
                                 },0);
+                                
                             }
                         }
+                        
                         },2);
                     }
                     metalStorm();
