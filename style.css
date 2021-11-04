@@ -207,19 +207,21 @@ body {
     -webkit-text-stroke: 0.1vw black;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     transform: translate(0%, 10%);
+    z-index: 4;
 }
 
 .money {
     position:absolute;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    bottom: -1%;
+    bottom: -1.25%;
     left: 50%;
-    font-size: 3.5vw;
+    font-size: 3.25vw;
     opacity: 0;
     color: rgb(255, 255, 150);
     -webkit-text-stroke: 0.25vw rgb(255, 255, 150);
     text-align: center;
     transform: translate(-50%,-50%);
+    z-index: 5;
 }
 
 .playerHPVis {
@@ -234,6 +236,21 @@ body {
     transform: translate(-50%,-50%);
     border: 0.25vw solid black;
     box-shadow: 0vw 0.5vw 0vw black;
+    z-index: 5;
+}
+
+.enemyRemainVis {
+    position:absolute;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    bottom: -1%;
+    left: 12%;
+    font-size: 2vw;
+    opacity: 1;
+    color: rgb(255, 150, 150);
+    -webkit-text-stroke: 0.15vw black;
+    text-align: left;
+    transform: translate(-50%,-50%);
+    z-index: 5;
 }
 
 @keyframes spin {

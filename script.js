@@ -1,4 +1,4 @@
-const version = "0.3.9";
+const version = "0.4.0";
 
 const bodyVar = document.createElement('div');
 bodyVar.setAttribute('class','bodyVar');
@@ -26,7 +26,10 @@ let moneyval = 0;
 money.innerHTML = "$" + moneyval;
 bodyVar.appendChild(money);
 
-let enemiesRemainingVis = document.createElement('div');
+let enemiesRemaining = 0;
+let enemyRemainVis = document.createElement('div');
+enemyRemainVis.setAttribute('class','enemyRemainVis');
+enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
 
 
 let selectedCharacter = 0;
@@ -69,7 +72,7 @@ let charChooseText = document.createElement('div');
   characterConfirm.setAttribute('class', 'characterConfirm');
   characterConfirm.innerHTML = "Ready?";
 
-  let enemiesRemaining = 0
+
   let firerate = 0;
   let posX = 50;
   let posY = 50;
@@ -179,6 +182,7 @@ function startGame() {
     spawnGUI();
     function spawnGUI() {
         bodyVar.appendChild(playerHPVis);
+        bodyVar.appendChild(enemyRemainVis);
         document.getElementById('money').style.opacity = 1;
     }
 
@@ -191,6 +195,7 @@ function startGame() {
         function spawnWave1() {
             wavepower = 6;
             enemiesRemaining = 6;
+            enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
             spawnEnemy1();
             function spawnEnemy1() {
                 if (wavepower > 1) {
@@ -243,6 +248,7 @@ function startGame() {
                                     moneyval = moneyval + 1;
                                     document.getElementById('money').innerHTML = "$" + moneyval;
                                     enemiesRemaining -= 1;
+                                    enemyRemainVis.innerHTML = "Enemies remaining: " + enemiesRemaining;
                                 }
                             }, 10);
                             setTimeout(() => {
@@ -450,9 +456,9 @@ function startGame() {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
 
                                 if(bullet1Hitbox.x <= (enemy1Hitbox.x + 20) 
-                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 10) 
+                                && bullet1Hitbox.x >= (enemy1Hitbox.x - 15) 
                                 && bullet1Hitbox.y <= (enemy1Hitbox.y + 20) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 10) ) {
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 15) ) {
                                     console.log("do the thing")
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
@@ -565,10 +571,10 @@ function startGame() {
                         setTimeout(() => {
                             if (bulletHit == true) {
                                 bullet1Hitbox = bullet1.getBoundingClientRect();
-                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 70) 
+                                if(bullet1Hitbox.x <= (enemy1Hitbox.x + 85) 
                                 && bullet1Hitbox.x >= (enemy1Hitbox.x - 55) 
-                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 70) 
-                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 55) ) {
+                                && bullet1Hitbox.y <= (enemy1Hitbox.y + 65) 
+                                && bullet1Hitbox.y >= (enemy1Hitbox.y - 50) ) {
                                     if (bulletPosX > -5 && bulletPosX < 105 && bulletPosY > -5 && bulletPosY < 105) {
                                         bulletPosX = bulletPosX + (directionX / 16);
                                         bulletPosY = bulletPosY + (directionY / 9);
